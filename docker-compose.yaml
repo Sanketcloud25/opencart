@@ -1,11 +1,27 @@
 version: '3.8'
+
 services:
-  opencart:
+  app:
     build: .
+    container_name: opencart-app
     ports:
       - "80:80"
     environment:
-      - DB_HOST=mysql-instance-private-ip
+      - DB_HOST=db
       - DB_NAME=opencart
-      - DB_USER=root
-      - DB_PASSWORD=password
+      - DB_USER=opencart_user
+      - DB_PASSWORD=root
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: opencart
+      MYSQL_USER: opencart_user
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"

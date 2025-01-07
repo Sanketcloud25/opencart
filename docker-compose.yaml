@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  opencart:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - DB_HOST=mysql-instance-private-ip
+      - DB_NAME=opencart
+      - DB_USER=root
+      - DB_PASSWORD=password
